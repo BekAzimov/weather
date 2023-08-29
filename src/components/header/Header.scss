@@ -1,0 +1,39 @@
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
+.logo {
+    display: flex;
+    align-items: center;
+    color: #4793FF;
+    font-size: 25px;
+    font-weight: 700;
+    text-transform: uppercase;
+    
+    &__img {
+        margin-right: 20px;
+    }
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    
+    &__input {
+        border-radius: 10px;
+        background: rgba(71, 147, 255, 0.20);
+        width: 194px;
+        font-weight: 500;
+        padding: 9px 20px;
+        margin-left: 20px;
+        
+        &::placeholder {
+            color: var(--color);
+        }
+    }
+    
+    
+}

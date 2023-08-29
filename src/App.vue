@@ -1,153 +1,31 @@
 <template>
-  <div>
-    <Header 
-    @getSearch="search = $event"
-    :lang="lang"
-    @changeLang="changeLang"
-    />
-    <Notes 
-    :notes="filterNotes"
-    @delNote="delNote"
-    @changeNote="changeNote"
-    :lang="lang"
-    />
-    <Modal 
-    @closeModal="closeModal" 
-    v-show="modalOpen"
-    :currentId="currentId"
-    @addNote="addNote"
-    :edit="edit"
-    :editNote="editNote"
-    @editedNote="editedNote"
-    :lang="lang"
-    />
-    <AddButton @openModal="openModal"/>
+  <div class="container" v-if="getFullWeather">
+    <Header/>
+    <Main/>
   </div>
 </template>
 
 <script>
-import Header from './components/Header.vue';
-import Notes from './components/Notes.vue';
-import Modal from './components/Modal.vue';
-import AddButton from './components/Add-Button.vue';
-import langs from './lang'
-import { vasya, Petya } from './lang'
-// console.log(langs);
-// console.log(vasya);
-// console.log(Petya);
-
+import Header from './components/header/Header.vue';
+import Main from './components/Main.vue';
+import { mapActions, mapGetters } from "vuex";
   export default {
     components: {
       Header,
-      Notes,
-      Modal,
-      AddButton
-    },
-    data(){
-      return {
-        notes: [
-          {
-            id: 1,
-            title: 'Vue',
-            date: '07.03.2022',
-            desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor'
-          },
-          {
-            id: 2,
-            title: 'React',
-            date: '15.08.2000',
-            desc: 'Lorem ipsum dolor sit amet'
-          },
-          {
-            id: 3,
-            title: 'Angular',
-            date: '08.07.1981',
-            desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor'
-          },
-        ],
-        modalOpen: false,
-        currentId: 1,
-        edit: false,
-        editNote: {},
-        search: '',
-        lang: 'ru',
-        langwords: {}
-      }
+      Main
     },
     methods: {
-      openModal(){
-        this.modalOpen = true;
-      },
-      closeModal(){
-        this.modalOpen = false
-        setTimeout(() => {
-          this.edit = false
-        }, 500);
-      },
-      addNote(item){
-        this.notes.push(item)
-      },
-      delNote(id){
-        let index = this.notes.findIndex( (elem) => elem.id == id );
-        this.notes.splice(index, 1)
-        console.log(index);
-      },
-      getNotes(){
-        let localNotes = localStorage.getItem('notes');
-        if (localNotes) {
-          this.notes = JSON.parse(localNotes); 
-          let lastIndex = this.notes.length - 1;
-          this.currentId = lastIndex >=0 ? this.notes[lastIndex].id + 1 : 1;
-        }
-      },
-      changeNote(id){
-        // let elem = this.notes.find((elem)=>{ return elem.id == id})
-        let elem = this.notes.find((elem)=> elem.id == id)
-        this.editNote = elem;
-        this.modalOpen = this.edit = true;
-      },
-      editedNote(item){
-        this.notes.forEach((elem)=>{
-          if (elem.id == item.id) {
-            elem.title = item.title;
-            elem.desc = item.desc;
-            elem.date = item.date;
-          }
-        })
-      },
-      changeLang(val){
-        this.lang = val;
-        localStorage.setItem('lang', val)
-      }
+      ...mapActions(['setWeather'])
     },
-    watch:{
-      notes: {
-        handler(val, oldVal) {
-          localStorage.setItem('notes', JSON.stringify(this.notes))
-        },
-        deep: true
-      }
-    },
-    created(){
-      this.getNotes()
-      this.langwords = langs;
-      this.lang = localStorage.getItem('lang') || 'ru'
-    }, 
     computed: {
-      filterNotes(){
-        let items = this.notes.filter((elem)=>{
-          let result = elem.title.toLowerCase().includes(this.search.toLowerCase())
-          return result;
-        })
-        return items
-      }
-    },
-    provide: {
-      words: langs
+            ...mapGetters(['getFullWeather'])
+        },
+    created(){
+      this.setWeather('Tashkent')
     }
   }
 </script>
 
-<style scoped>
+<style lang="scss">
 
 </style>
