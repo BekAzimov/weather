@@ -21,28 +21,28 @@
                     <img src="../../assets/img/temp.svg" alt="">
                 </div>
                 <p class="current__name">Температура</p>
-                <p class="current__desc">20° - ощущается как 17°</p>
+                <p class="current__desc">{{Math.round(getFullWeather.current.temp)}}° - ощущается как {{Math.round(getFullWeather.current.feels_like)}}°</p>
             </div>
             <div class="current__card">
                 <div class="current__icon">
                     <img src="../../assets/img/pressure.svg" alt="">
                 </div>
                 <p class="current__name">Давление</p>
-                <p class="current__desc">765 мм ртутного столба</p>
+                <p class="current__desc">{{getFullWeather.current.pressure}} мм ртутного столба</p>
             </div>
             <div class="current__card">
                 <div class="current__icon">
                     <img src="../../assets/img/precipitation.svg" alt="">
                 </div>
                 <p class="current__name">Осадки</p>
-                <p class="current__desc">Без осадков</p>
+                <p class="current__desc">{{getFullWeather.current.humidity}}%</p>
             </div>
             <div class="current__card">
                 <div class="current__icon">
                     <img src="../../assets/img/wind.svg" alt="">
                 </div>
                 <p class="current__name">Ветер</p>
-                <p class="current__desc">3 м/с юго-запад - легкий ветер</p>
+                <p class="current__desc">{{getFullWeather.current.wind_speed}} м/с {{windDeg}}</p>
             </div>
         </div>
     </div>
@@ -56,6 +56,22 @@ import { mapGetters } from "vuex";
             icon(){
                 let icon = this.getFullWeather.current.weather[0].icon
                 return parseInt (icon);
+            },
+            windDeg(){
+                let deg = this.getFullWeather.current.wind_deg;
+                if ( (deg >=0 && deg < 45) || (deg >315 && deg <=360) ) {
+                    deg = 'северный'
+                }
+                else if(deg >= 45 && deg < 135){
+                    deg = 'восточный'
+                }
+                else if(deg >= 135 && deg < 225){
+                    deg = 'южный'
+                }
+                 else {
+                    deg = 'западный'
+                }
+                return deg;
             }
         }
     }

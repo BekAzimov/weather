@@ -3,6 +3,9 @@
     <Header/>
     <Main/>
   </div>
+  <div class="loading" v-else>
+    <img src="./assets/img/loading.gif" alt="" class="loading__img">
+  </div>
 </template>
 
 <script>
@@ -21,7 +24,10 @@ import { mapActions, mapGetters } from "vuex";
             ...mapGetters(['getFullWeather'])
         },
     created(){
-      this.setWeather('Tashkent')
+      setTimeout(() => {
+        this.setWeather('Tashkent')
+      }, 1000);
+        
     }
   }
 </script>

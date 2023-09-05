@@ -1,0 +1,41 @@
+.day {
+    border-radius: 10px;
+    background: rgba(71, 147, 255, 0.20);
+    max-width: 149px;
+    width: 100%;
+    padding: 11px;
+
+    &__title {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+
+    &__date {
+        color: #939CB0;
+        font-size: 14px;
+        margin-bottom: 12px;
+    }
+
+    &__icon {
+        max-width: 44px;
+        margin-bottom: 15px;
+    }
+
+    &__temp {
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+    &__night {
+        color: #939CB0;
+        font-size: 13px;
+        margin-bottom: 6px;
+    }
+
+    &__desc {
+        color: #939CB0;
+        font-size: 13px;
+    }
+
+}

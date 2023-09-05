@@ -1,0 +1,31 @@
+.week {
+    margin-top: 50px;
+    
+    &__nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    &__btn {
+        border-radius: 5px;
+        box-shadow: 2px 5px 25px -3px rgba(180, 180, 180, 0.25);
+        padding: 7px 20px;
+        font-size: 18px;
+        margin-bottom: 7px;
+        
+        &.active {
+            color: #fff;
+            background: #4793FF;
+        }
+    }
+    
+    &__content {
+        border-radius: 0px 0px 20px 20px;
+        background: #FFF;
+        box-shadow: 2px 5px 25px -3px rgba(180, 180, 180, 0.25);
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+}
